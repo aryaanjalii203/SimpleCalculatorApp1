@@ -1,0 +1,139 @@
+ACTIVITY_MAIN.XML
+
+
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <EditText
+        android:id="@+id/et_a"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:hint="Enter a" />
+
+    <EditText
+        android:id="@+id/et_b"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:hint="Enter b" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:text="+" />
+
+        <Button
+            android:id="@+id/btn_sub"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:text="-" />
+
+        <Button
+            android:id="@+id/btn_multiplication"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:text="*" />
+
+        <Button
+            android:id="@+id/btn_division"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:text="/" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/result_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:gravity="center"
+        android:text="Result of two numbers:"
+        android:textSize="24sp" />
+
+
+</LineaRLayout>
+
+
+
+MAINACTIVITY.KT
+
+
+
+package com.example.myapplication
+
+import android.os.Bundle
+import android.view.View
+import android.widget.Button
+import android.widget.EditText
+import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+
+class MainActivity : AppCompatActivity(), View.OnClickListener {
+
+    lateinit var btnadd: Button
+    lateinit var btnsub: Button
+    lateinit var btndivision: Button
+    lateinit var btnmultiplication: Button
+    lateinit var etA: EditText
+    lateinit var etB: EditText
+    lateinit var resultTv: TextView
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        btnadd = findViewById(R.id.btn_add)
+        btnsub = findViewById(R.id.btn_sub)
+        btndivision = findViewById(R.id.btn_division)
+        btnmultiplication = findViewById(R.id.btn_multiplication)
+        etA = findViewById(R.id.et_a)
+        etB = findViewById(R.id.et_b)
+        resultTv = findViewById(R.id.result_tv)
+
+
+        btnadd.setOnClickListener(this)
+        btnsub.setOnClickListener(this)
+        btndivision.setOnClickListener(this)
+        btnmultiplication.setOnClickListener(this)
+    }
+
+    override fun onClick(v: View?) {
+        val a = etA.text.toString().toDoubleOrNull() ?: 0.0
+        val b = etB.text.toString().toDoubleOrNull() ?: 0.0
+        var result = 0.0
+
+        when (v?.id) {
+            R.id.btn_add -> {
+                result = a + b
+            }
+            R.id.btn_sub -> {
+                result = a - b
+            }
+            R.id.btn_multiplication -> {
+                result = a * b
+            }
+            R.id.btn_division -> {
+                result = if (b != 0.0) a / b else 0.0
+            }
+        }
+        resultTv.text = "Result is $result"
+    }
+}
